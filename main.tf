@@ -101,7 +101,7 @@ resource "aws_instance" "k3s_node" {
   key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
 
-  user_data = file("${path.module}/user-data/k3s-node.sh")
+  user_data = file("${path.module}/scripts/k3s-node.sh")
 
   tags = {
     Name = "k3s-node"
@@ -115,7 +115,7 @@ resource "aws_instance" "nginx_proxy" {
   key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
 
-  user_data = file("${path.module}/user-data/nginx-proxy.sh")
+  user_data = file("${path.module}/scripts/nginx-proxy.sh")
 
   tags = {
     Name = "nginx-proxy"
