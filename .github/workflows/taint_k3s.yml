@@ -26,7 +26,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      -name: Taint k3s_node instance
+      - name: Taint k3s_node instance
         run: terraform taint aws_instance.k3s_node
 
       - name: Terraform Apply
