@@ -2,9 +2,6 @@
 set -euxo pipefail
 exec > /var/log/user-data.log 2>&1
 
-GITHUB_TOKEN="${gh_pat}"
-
-
 # Enable swap for t2.micro stability
 fallocate -l 1G /swapfile
 chmod 600 /swapfile
@@ -39,7 +36,7 @@ cd /home/ubuntu
 
 # Clone private repo using GitHub token (passed via user-data env var or inserted directly)
 GITHUB_USERNAME="jsbowen79"
-GITHUB_TOKEN="${GH_PAT}"
+GITHUB_TOKEN="${gh_pat}"
 
 git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/cloudifyrides-infra.git
 
