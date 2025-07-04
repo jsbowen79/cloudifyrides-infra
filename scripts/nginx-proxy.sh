@@ -34,14 +34,14 @@ server {
 
     location / {
         proxy_pass http://10.0.1.10:30081/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
     }
 
     location /api/ {
         proxy_pass http://10.0.1.10:30080/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
         proxy_redirect off;
     }
 }
