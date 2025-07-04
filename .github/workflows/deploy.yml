@@ -29,7 +29,6 @@ jobs:
           name: terraform-state
           path: .
 
-
       - name: Terraform Init
         run: terraform init
 
@@ -37,7 +36,6 @@ jobs:
         env:
           TF_LOG: DEBUG
         run: terraform apply -auto-approve -input=false
-        continue-on-error: false
 
       - name: Save Terraform state
         uses: actions/upload-artifact@v4
@@ -45,7 +43,5 @@ jobs:
           name: terraform-state
           path: terraform.tfstate
 
-
       - name: Terraform Output
         run: terraform output -json
-
