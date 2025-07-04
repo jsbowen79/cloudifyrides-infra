@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 exec > /var/log/user-data.log 2>&1
-echo "Rendering with token length: ${#key}" >> /var/log/user-data.log
+echo 'Rendering with token length: ${#key}' >> /var/log/user-data.log
 
 
 
@@ -38,9 +38,8 @@ chmod 777 /mnt/data/rides
 cd /home/ubuntu
 
 # Clone private repo using GitHub token (passed via user-data env var or inserted directly)
-GITHUB_TOKEN="${key}"
 
-git clone https://jsbowen79:${GITHUB_TOKEN}@github.com/jsbowen79/cloudifyrides-infra.git
+git clone https://jsbowen79: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@github.com/jsbowen79/cloudifyrides-infra.git
 
 cd cloudifyrides-infra/k8s
 

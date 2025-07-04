@@ -96,9 +96,8 @@ resource "aws_instance" "k3s_node" {
   key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
 
-  user_data = templatefile("${path.module}/scripts/k3s-node.sh.tpl", {
-    key = var.key
-  })
+  user_data = file("${path.module}/scripts/k3s-node.sh"
+  )
 
   tags = {
     Name = "k3s-node"
