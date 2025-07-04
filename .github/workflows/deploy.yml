@@ -23,11 +23,11 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Restore Terraform state
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform-state
-          path: .
+#      - name: Restore Terraform state
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: terraform-state
+#          path: .
 
       - name: Terraform Init
         run: terraform init
