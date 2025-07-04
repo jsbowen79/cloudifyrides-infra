@@ -31,6 +31,18 @@ until kubectl get pods -n kube-system | grep -q 'Running'; do sleep 2; done
 mkdir -p /mnt/data/rides
 chmod 777 /mnt/data/rides
 
+# Clone your repo to get YAML files
+cd /home/ubuntu
+
+# Clone private repo using GitHub token (passed via user-data env var or inserted directly)
+GITHUB_USERNAME="jsbowen79"
+GITHUB_TOKEN="${GH_PAT}"
+
+git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/cloudifyrides-infra.git
+
+cd cloudifyrides-infra/k8s
+
+
 kubectl apply -f /home/ubuntu/cloudifyrides/k8s/rides-pv.yaml
 kubectl apply -f /home/ubuntu/cloudifyrides/k8s/rides-pvc.yaml
 kubectl apply -f /home/ubuntu/cloudifyrides/k8s/backend-deployment.yaml
