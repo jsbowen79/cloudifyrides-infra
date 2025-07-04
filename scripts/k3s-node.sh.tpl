@@ -10,7 +10,7 @@ fallocate -l 1G /swapfile
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
-echo '/swapfile none swap sw 0 0' >> /etc/fstab
+echo "/swapfile none swap sw 0 0" >> /etc/fstab
 
 # Install dependencies
 apt-get update -y
