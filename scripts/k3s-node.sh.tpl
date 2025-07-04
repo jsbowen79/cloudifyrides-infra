@@ -2,6 +2,9 @@
 set -euxo pipefail
 exec > /var/log/user-data.log 2>&1
 
+GITHUB_TOKEN="${gh_pat}"
+
+
 # Enable swap for t2.micro stability
 fallocate -l 1G /swapfile
 chmod 600 /swapfile
