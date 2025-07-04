@@ -132,6 +132,7 @@ resource "aws_eip_association" "nginx_eip_assoc" {
 
 output "nginx_ip" {
   value = aws_eip.nginx.public_ip
+  sensitive = false
 }
 
 output "private_key" {
