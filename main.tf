@@ -2,14 +2,9 @@ provider "aws" {
   region = var.aws_region
 }
 
-resource "tls_private_key" "deployer" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
 resource "aws_key_pair" "deployer" {
   key_name   = "cloudifyrides-key"
-  public_key = tls_private_key.deployer.public_key_openssh
+  public_key = file("${path.module}/cloudifyrides-key.pub")
 }
 
 resource "aws_vpc" "main" {
@@ -132,10 +127,5 @@ resource "aws_eip_association" "nginx_eip_assoc" {
 
 output "nginx_ip" {
   value = aws_eip.nginx.public_ip
-  sensitive = false
 }
 
-output "private_key" {
-  value     = tls_private_key.deployer.private_key_pem
-  sensitive = false
-}
