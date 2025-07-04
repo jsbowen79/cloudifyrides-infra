@@ -27,9 +27,11 @@ jobs:
         run: terraform init
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        env:
+          TF_LOG: DEBUG
+        run: terraform apply -auto-approve -input=false
         continue-on-error: false
 
-      - name: Terraform output
-        run: terraform output
+      - name: Terraform Output
+        run: terraform output -json
 
