@@ -41,12 +41,14 @@ cd /home/ubuntu
 
 git clone https://jsbowen79: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@github.com/jsbowen79/cloudifyrides-infra.git
 
-cd cloudifyrides-infra/k8s
+ls -l /home/ubuntu/cloudifyrides-infra/k8s >> /var/log/user-data.log
 
 
-kubectl apply -f /home/ubuntu/cloudifyrides/k8s/rides-pv.yaml
-kubectl apply -f /home/ubuntu/cloudifyrides/k8s/rides-pvc.yaml
-kubectl apply -f /home/ubuntu/cloudifyrides/k8s/backend-deployment.yaml
-kubectl apply -f /home/ubuntu/cloudifyrides/k8s/backend-service.yaml
-kubectl apply -f /home/ubuntu/cloudifyrides/k8s/frontend-deployment.yaml
-kubectl apply -f /home/ubuntu/cloudifyrides/k8s/frontend-service.yaml
+
+kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/rides-pv.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/rides-pvc.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/backend-deployment.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/backend-service.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-deployment.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-service.yaml >> /var/log/user-data.log 2>&1
+
