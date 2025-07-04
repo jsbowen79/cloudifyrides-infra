@@ -1,4 +1,4 @@
-name: Terraform Deploy
+name: Terraform Taint K3S
 
 on:
   push:
