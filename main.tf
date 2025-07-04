@@ -97,8 +97,7 @@ resource "aws_instance" "k3s_node" {
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
 
   user_data = templatefile("${path.module}/scripts/k3s-node.sh.tpl", {
-    gh_pat = var.gh_pat
-    github_username  = var.github_username
+    key = var.key
   })
 
   tags = {
