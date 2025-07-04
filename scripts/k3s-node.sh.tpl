@@ -35,7 +35,7 @@ chmod 777 /mnt/data/rides
 cd /home/ubuntu
 
 # Clone private repo using GitHub token (passed via user-data env var or inserted directly)
-GITHUB_USERNAME="jsbowen79"
+GITHUB_USERNAME="${github_username}"
 GITHUB_TOKEN="${gh_pat}"
 
 git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/cloudifyrides-infra.git

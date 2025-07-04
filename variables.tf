@@ -12,3 +12,7 @@ variable "gh_pat" {
   sensitive   = true
 }
 
+variable "github_username" {
+  description = "GitHub username used for cloning private repositories"
+  type        = string
+}
