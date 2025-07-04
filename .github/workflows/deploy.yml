@@ -28,4 +28,8 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        continue-on-error: false
+
+      - name: Terraform output
+        run: terraform output
 
