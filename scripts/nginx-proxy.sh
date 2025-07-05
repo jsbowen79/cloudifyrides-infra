@@ -24,6 +24,8 @@ sudo openssl req -x509 -nodes -days 365 \
 # Configure Nginx reverse proxy to K3s services
 sudo tee /etc/nginx/sites-available/default > /dev/null <<EOF
 server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
     listen 443 ssl default_server;
     listen [::]:443 ssl default_server;
 
