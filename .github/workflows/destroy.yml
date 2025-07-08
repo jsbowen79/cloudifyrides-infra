@@ -1,4 +1,4 @@
-name: Terraform Destroy
+name: Terraform Destroy  #Activate
 
 on:
   workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
