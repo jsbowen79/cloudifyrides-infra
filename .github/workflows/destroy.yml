@@ -23,6 +23,9 @@ jobs:
         with:
           terraform_version: 1.12.2
 
+     - name: Terraform Login
+       run: terraform login -token=$TF_API_TOKEN
+
       - name: Terraform Init
         run: terraform init -input=false
 
