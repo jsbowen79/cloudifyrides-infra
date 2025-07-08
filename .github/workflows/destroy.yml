@@ -1,4 +1,3 @@
-$ cat destroy.yml
 name: Terraform Destroy
 
 on:
