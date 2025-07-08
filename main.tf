@@ -1,5 +1,21 @@
+terraform {
+  required_version = ">= 1.0"
+
+  backend "remote" {
+    organization = "jsbowen79" 
+    workspaces {
+      name = "Cloudifyrides" 
+    }
+  }
+}
+
+
 provider "aws" {
   region = var.aws_region
+}
+
+data "aws_eip" "static_ip" {
+  public_ip = "52.200.76.169"
 }
 
 resource "aws_key_pair" "deployer" {
@@ -118,15 +134,12 @@ resource "aws_instance" "nginx_proxy" {
   }
 }
 
-resource "aws_eip" "nginx" {
-}
-
-resource "aws_eip_association" "nginx_eip_assoc" {
-  allocation_id = aws_eip.nginx.id
+resource "aws_eip_association" "static_eip_attach" {
+  allocation_id = data.aws_eip.static_ip.id
   instance_id   = aws_instance.nginx_proxy.id
 }
 
 output "nginx_ip" {
-  value = aws_eip.nginx.public_ip
+  value = data.aws_eip.static_ip
 }
 
