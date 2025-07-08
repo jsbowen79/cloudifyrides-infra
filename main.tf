@@ -1,3 +1,15 @@
+terraform {
+  required_version = ">= 1.0"
+
+  backend "remote" {
+    organization = "jsbowen79" 
+    workspaces {
+      name = "Cloudifyrides" 
+    }
+  }
+}
+
+
 provider "aws" {
   region = var.aws_region
 }
