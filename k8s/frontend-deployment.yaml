@@ -22,7 +22,8 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: jsbowen79/cloudifyrides-frontend:v8
+        - image: jsbowen79/cloudifyrides-frontend:v9
+
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
