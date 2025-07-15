@@ -5,7 +5,7 @@ metadata:
   finalizers:
     - kubernetes.io/pvc-protection
   name: rides-pvc
-  namespace: default
+  namespace: cloudifyrides
 spec:
   accessModes:
     - ReadWriteOnce
