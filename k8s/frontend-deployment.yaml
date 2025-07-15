@@ -17,33 +17,30 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: frontend
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
-        - image: jsbowen79/cloudifyrides-frontend:v9
-
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-
+        - name: frontend
+          image: jsbowen79/cloudifyrides-frontend:v9
           imagePullPolicy: IfNotPresent
-          name: frontend
           ports:
             - containerPort: 80
               protocol: TCP
           readinessProbe:
-            failureThreshold: 3
             httpGet:
               path: /
               port: 80
               scheme: HTTP
             initialDelaySeconds: 5
             periodSeconds: 5
-            successThreshold: 1
             timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
           resources:
             limits:
               cpu: 250m
@@ -51,8 +48,22 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /run
+      volumes:
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
