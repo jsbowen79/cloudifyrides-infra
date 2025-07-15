@@ -1,9 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
   name: backend
-  namespace: default
+  namespace: cloudifyrides
 spec:
   progressDeadlineSeconds: 600
   replicas: 2
@@ -27,6 +26,10 @@ spec:
             - name: DATA_FILE
               value: /data/rides.db
           image: jsbowen79/cloudifyrides-backend:v6
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
           imagePullPolicy: IfNotPresent
           name: backend
           ports:
@@ -71,7 +74,6 @@ spec:
               name: rides-data
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
         - name: rides-data

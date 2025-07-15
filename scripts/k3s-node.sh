@@ -59,14 +59,17 @@ git clone https://jsbowen79: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@github.com/
 
 ls -l /home/ubuntu/cloudifyrides-infra/k8s >> /var/log/user-data.log
 
+# Enable Pod Security
+kubectl label namespace cloudifyrides \
+  pod-security.kubernetes.io/enforce=restricted \
+  pod-security.kubernetes.io/enforce-version=latest
 
-
-kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/rides-pv.yaml >> /var/log/user-data.log 2>&1
-kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/rides-pvc.yaml >> /var/log/user-data.log 2>&1
-kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/backend-deployment.yaml >> /var/log/user-data.log 2>&1
-kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/backend-service.yaml >> /var/log/user-data.log 2>&1
-kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-deployment.yaml >> /var/log/user-data.log 2>&1
-kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-service.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/rides-pv.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/rides-pvc.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/backend-deployment.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/backend-service.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-deployment.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-service.yaml >> /var/log/user-data.log 2>&1
 
 # Harden the k3s-node
 sudo ufw default deny incoming

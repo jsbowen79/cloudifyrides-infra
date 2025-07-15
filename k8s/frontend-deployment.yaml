@@ -1,9 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
   name: frontend
-  namespace: default
+  namespace: cloudifyrides
 spec:
   progressDeadlineSeconds: 600
   replicas: 2
@@ -24,6 +23,11 @@ spec:
     spec:
       containers:
         - image: jsbowen79/cloudifyrides-frontend:v7
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+
           imagePullPolicy: IfNotPresent
           name: frontend
           ports:
@@ -51,5 +55,4 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: {}
       terminationGracePeriodSeconds: 30
