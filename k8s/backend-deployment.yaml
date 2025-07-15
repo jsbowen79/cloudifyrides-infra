@@ -25,7 +25,7 @@ spec:
         - env:
             - name: DATA_FILE
               value: /data/rides.db
-          image: jsbowen79/cloudifyrides-backend:v6
+          image: jsbowen79/cloudifyrides-backend:v7
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
