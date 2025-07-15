@@ -13,6 +13,23 @@ EMAIL="jsbowen79@outlook.com"
 apt-get update -y
 apt-get install -y nginx certbot python3-certbot-nginx ufw
 
+# Install and configure automatic updates
+DEBIAN_FRONTEND=noninteractive apt-get install -y unattended-upgrades
+echo 'Unattended-Upgrade::Automatic-Reboot "true";' > /etc/apt/apt.conf.d/51>
+cat <<EOF > /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+cat <<EOF > /etc/apt/apt.conf.d/50unattended-upgrades
+Unattended-Upgrade::Allowed-Origins {
+    "\${distro_id}:\${distro_codename}-security";
+};
+#Unattended-Upgrade::Automatic-Reboot "true";
+EOF
+
+
 # Open firewall ports (optional, in case UFW is in use)
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -59,5 +76,13 @@ systemctl restart nginx
 # Request and install Let's Encrypt cert (non-interactive)
 certbot --nginx --non-interactive --agree-tos --redirect -d $DOMAIN_NAME -m $EMAIL
 
-# Done. Certbot modifies the config to use HTTPS and reloads Nginx.
+# Ensure that SSH login by password is disabled
+sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i 's/^#PasswordAuthentication no/PasswordAuthentication no/' /etc/ssh/sshd_config
 
+# Disable root SSH login
+sed -i 's/^#PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+
+systemctl restart sshd

@@ -16,6 +16,22 @@ echo "/swapfile none swap sw 0 0" >> /etc/fstab
 apt-get update -y
 apt-get install -y curl git
 
+# Install and configure automatic updates
+DEBIAN_FRONTEND=noninteractive apt-get install -y unattended-upgrades
+echo 'Unattended-Upgrade::Automatic-Reboot "true";' > /etc/apt/apt.conf.d/51auto-reboot
+cat <<EOF > /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+cat <<EOF > /etc/apt/apt.conf.d/50unattended-upgrades
+Unattended-Upgrade::Allowed-Origins {
+    "\${distro_id}:\${distro_codename}-security";
+};
+#Unattended-Upgrade::Automatic-Reboot "true";
+EOF
+
 # Install Docker
 curl -fsSL https://get.docker.com | sh
 usermod -aG docker ubuntu
@@ -60,3 +76,15 @@ sudo ufw allow from 52.200.76.169 to any port 30081 proto tcp
 sudo ufw allow 'OpenSSH'
 
 sudo ufw --force enable
+
+# Ensure that SSH login by password is disabled
+
+sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i 's/^#PasswordAuthentication no/PasswordAuthentication no/' /etc/ssh/sshd_config
+
+# Disable root SSH login
+sed -i 's/^#PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+
+systemctl restart sshd
