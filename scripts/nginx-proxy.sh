@@ -15,7 +15,7 @@ apt-get install -y nginx certbot python3-certbot-nginx ufw
 
 # Install and configure automatic updates
 DEBIAN_FRONTEND=noninteractive apt-get install -y unattended-upgrades
-echo 'Unattended-Upgrade::Automatic-Reboot "true";' > /etc/apt/apt.conf.d/51>
+echo 'Unattended-Upgrade::Automatic-Reboot "true";' > /etc/apt/apt.conf.d/51auto-reboot
 cat <<EOF > /etc/apt/apt.conf.d/20auto-upgrades
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "1";
