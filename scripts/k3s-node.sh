@@ -52,3 +52,11 @@ kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/backend-service.yaml >> /v
 kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-deployment.yaml >> /var/log/user-data.log 2>&1
 kubectl apply -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-service.yaml >> /var/log/user-data.log 2>&1
 
+# Harden the k3s-node
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow from 52.200.76.169 to any port 30080 proto tcp
+sudo ufw allow from 52.200.76.169 to any port 30081 proto tcp
+sudo ufw allow 'OpenSSH'
+
+sudo ufw --force enable

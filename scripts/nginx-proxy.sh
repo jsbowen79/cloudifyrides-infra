@@ -14,9 +14,14 @@ apt-get update -y
 apt-get install -y nginx certbot python3-certbot-nginx ufw
 
 # Open firewall ports (optional, in case UFW is in use)
-ufw allow 'OpenSSH'
-ufw allow 'Nginx Full'
-ufw --force enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow from 10.0.1.10 to any port 30080 proto tcp
+sudo ufw allow from 10.0.1.10 to any port 30081 proto tcp
+sudo ufw allow 'OpenSSH'
+sudo ufw --force enable
 
 # Write temporary Nginx config with only HTTP
 cat > /etc/nginx/sites-available/default <<EOF
