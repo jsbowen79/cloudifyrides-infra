@@ -73,6 +73,7 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow from 52.200.76.169 to any port 30080 proto tcp
 sudo ufw allow from 52.200.76.169 to any port 30081 proto tcp
+sudo ufw allow from 10.0.1.10 to any port 30081 proto tcp
 sudo ufw allow 'OpenSSH'
 
 sudo ufw --force enable
