@@ -69,6 +69,8 @@ kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/backend-d
 kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/backend-service.yaml >> /var/log/user-data.log 2>&1
 kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-deployment.yaml >> /var/log/user-data.log 2>&1
 kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-service.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/frontend-hpa.yaml >> /var/log/user-data.log 2>&1
+kubectl apply -n cloudifyrides -f /home/ubuntu/cloudifyrides-infra/k8s/backend-hpa.yaml >> /var/log/user-data.log 2>&1
 
 # Harden the k3s-node
 sudo ufw default deny incoming
