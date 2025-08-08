@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+  finalizers:
+    - kubernetes.io/pvc-protection
+  name: rides-pvc
+  namespace: cloudifyrides
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+  storageClassName: ""
+  volumeMode: Filesystem
+  volumeName: rides-pv

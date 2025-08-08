@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: cloudifyrides
+spec:
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - nodePort: 30081
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: frontend
+  sessionAffinity: None
+  type: NodePort
